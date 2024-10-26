@@ -1,8 +1,10 @@
 
 import 'package:car_agency_flutter/middleware/auth_middleware.dart';
+import 'package:car_agency_flutter/modules/layout/layout_bloc/layout_cubit.dart';
 import 'package:car_agency_flutter/modules/layout/layout_screen.dart';
 import 'package:car_agency_flutter/screen/login_screen.dart';
 import 'package:car_agency_flutter/screen/register_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
 class Routes {
@@ -16,11 +18,13 @@ class AppPages {
   static final pages = [
     GetPage(
       name: Routes.home,
-      page: () =>const LayoutScreen(),
+      page: ()  => BlocProvider(
+        create: (context) => LayoutCubit()..loadCarsData(),
+        child: const LayoutScreen(),
+      ),
       middlewares: [
         AuthMiddleware()
-      ],
-      
+      ]
     ),
     GetPage(
       name: Routes.login,

@@ -1,7 +1,6 @@
 import 'package:car_agency_flutter/helpers/helpers.dart';
 import 'package:car_agency_flutter/models/user_model.dart';
 import 'package:car_agency_flutter/modules/auth/auth_bloc/auth_states.dart';
-import 'package:car_agency_flutter/modules/auth/user_repository.dart';
 import 'package:car_agency_flutter/shared/network/cache_network.dart';
 import 'package:car_agency_flutter/shared/network/dio_service.dart';
 import 'package:dio/dio.dart';
@@ -51,7 +50,7 @@ class AuthCubit extends  Cubit<AuthStates> {
       emit(AuthErrorState(e.response?.data['message']));
     }
   }
-  void userData() async {
+  void loadUserData() async {
     emit(LoadingUserDataState());
     try {
       var response = await _dio.get('${Helpers.usersServiceApi()}/user');

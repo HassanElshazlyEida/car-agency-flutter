@@ -1,3 +1,4 @@
+import 'package:car_agency_flutter/component/menu_drawer.dart';
 import 'package:car_agency_flutter/modules/layout/layout_bloc/layout_cubit.dart';
 import 'package:car_agency_flutter/modules/layout/layout_bloc/layout_states.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ class LayoutScreen extends StatelessWidget {
     return BlocBuilder<LayoutCubit, LayoutStates>(
       builder: (context, state) {
         return Scaffold(
+          drawer: const MenuDrawer(),
           appBar: AppBar(
             title: Image.asset('images/logo.png', height: 75, width: 75),
           ),

@@ -12,5 +12,5 @@ class UserRepository {
     CacheNetwork.removeCache('token');
   }
 
-  
+
 }
