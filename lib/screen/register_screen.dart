@@ -1,3 +1,4 @@
+import 'package:car_agency_flutter/helpers/helpers.dart';
 import 'package:flutter/material.dart';
 
 
@@ -27,16 +28,15 @@ class RegisterScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Helpers.formField(controller: nameController, label: 'Name', hint : 'Enter your name'),
                 const SizedBox(height: 16.0,),
-                _textFieldItem(controller: nameController, label: 'Name', hint : 'Enter your name'),
+                Helpers.formField(controller: emailController, label: 'Email', hint : 'Enter your email'),
                 const SizedBox(height: 16.0,),
-                _textFieldItem(controller: emailController, label: 'Email', hint : 'Enter your email'),
+                Helpers.formField(controller: phoneController, label: 'Phone', hint : 'Enter your phone'),
                 const SizedBox(height: 16.0,),
-                _textFieldItem(controller: phoneController, label: 'Phone', hint : 'Enter your phone'),
+                Helpers.formField(controller: passwordController, label: 'Password',hint  : 'Enter your password', isPassword: true),
                 const SizedBox(height: 16.0,),
-                _textFieldItem(controller: passwordController, label: 'Password',hint  : 'Enter your password', isPassword: true),
-                const SizedBox(height: 16.0,),
-                _textFieldItem(controller: confirmedPasswordController, label: 'Confirm Password',hint  : 'Enter your password again', isPassword: true),
+                Helpers.formField(controller: confirmedPasswordController, label: 'Confirm Password',hint  : 'Enter your password again', isPassword: true),
                 const SizedBox(height: 16.0,),
                 MaterialButton(
                   onPressed: (){
@@ -55,22 +55,4 @@ class RegisterScreen extends StatelessWidget {
         )
       );
     }
-}
-
-Widget _textFieldItem({required TextEditingController controller, required String hint, String? label, bool? isPassword}) {
-  return TextFormField(
-    controller: controller,
-    validator: (value) {
-      if (value!.isEmpty) {
-        return 'Please enter your ${label ?? hint}';
-      }
-      return null;
-    },
-    obscureText: isPassword ?? false,
-    decoration:  InputDecoration(
-      border: const OutlineInputBorder(),
-      labelText: label,
-      hintText: hint,
-    ),
-  );
 }

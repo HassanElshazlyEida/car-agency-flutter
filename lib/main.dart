@@ -1,8 +1,16 @@
+import 'package:car_agency_flutter/helpers/helpers.dart';
 import 'package:car_agency_flutter/screen/login_screen.dart';
 import 'package:car_agency_flutter/screen/register_screen.dart';
+import 'package:car_agency_flutter/shared/network/cache_network.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+
+Future main() async {
+
+  await dotenv.load(fileName: ".env");
+  await CacheNetwork.init();
+  
   runApp(const MyApp());
 }
 

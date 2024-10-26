@@ -1,3 +1,4 @@
+import 'package:car_agency_flutter/helpers/helpers.dart';
 import 'package:car_agency_flutter/screen/register_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -22,11 +23,9 @@ class LoginScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Center(child:  Text('Login',style: TextStyle(fontSize: 25.0,fontWeight: FontWeight.bold),)),
-                    _textFieldItem(controller: emailOrPasswordController, label: 'Email or Phone', hint : 'Enter your email or phone'),
-                    const SizedBox(
-                      height: 16.0,
-                    ),
-                    _textFieldItem(controller: passwordController, label: 'Password',hint  : 'Enter your password', isPassword: true),
+                    Helpers.formField(controller: emailOrPasswordController, label: 'Email or Phone', hint : 'Enter your email or phone'),
+                    const SizedBox(height: 16.0,),
+                    Helpers.formField(controller: passwordController, label: 'Email', hint : 'Enter your email'),
                     const SizedBox(height: 16.0,),
                     MaterialButton(
                       onPressed: () {
@@ -68,21 +67,4 @@ class LoginScreen extends StatelessWidget {
           ),
       ));
   }
-}
-Widget _textFieldItem({required TextEditingController controller, required String hint, String? label, bool? isPassword}) {
-  return TextFormField(
-    controller: controller,
-    validator: (value) {
-      if (value!.isEmpty) {
-        return 'Please enter your ${label ?? hint}';
-      }
-      return null;
-    },
-    obscureText: isPassword ?? false,
-    decoration:  InputDecoration(
-      border: const OutlineInputBorder(),
-      labelText: label,
-      hintText: hint,
-    ),
-  );
 }
