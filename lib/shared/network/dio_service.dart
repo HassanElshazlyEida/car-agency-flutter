@@ -2,7 +2,9 @@ import 'package:car_agency_flutter/shared/network/cache_network.dart';
 import 'package:dio/dio.dart';
 
 class DioService {
-  final Dio dio = Dio(BaseOptions());
+  final Dio dio = Dio(BaseOptions(
+   
+  ));
 
 
   DioService() {
@@ -12,9 +14,10 @@ class DioService {
   void _initializeInterceptors() {
     dio.interceptors.add(InterceptorsWrapper(
         onRequest: (options, handler)  {
+        options.headers['Accept'] = 'application/json';
         String? token =  CacheNetwork.getCache('token');
         if (token != null) {
-          options.headers['Authorization'] = token;
+          options.headers['Authorization'] = 'Bearer $token';
         }
         return handler.next(options);
       },

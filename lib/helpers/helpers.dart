@@ -21,7 +21,17 @@ class Helpers {
       ),
     );
   }
-
+  static AlertDialog errorDialog({required BuildContext context, required String message}){
+    return AlertDialog(
+      content: Text(message,style: const  TextStyle(color: Colors.white)),
+      backgroundColor: Colors.red,
+      actions: [
+        TextButton(onPressed: () {
+          Navigator.pop(context);
+        }, child: const Center(child:  Text('OK')))
+      ],
+    );
+  }
   static String? usersServiceApi(){
     return dotenv.env['USERS_SERVICE_API'];
   }
