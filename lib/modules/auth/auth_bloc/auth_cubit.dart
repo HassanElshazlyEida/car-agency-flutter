@@ -1,7 +1,7 @@
-import 'dart:convert';
-
 import 'package:car_agency_flutter/helpers/helpers.dart';
-import 'package:car_agency_flutter/modules/auth/auth_states.dart';
+import 'package:car_agency_flutter/models/user_model.dart';
+import 'package:car_agency_flutter/modules/auth/auth_bloc/auth_states.dart';
+import 'package:car_agency_flutter/modules/auth/user_repository.dart';
 import 'package:car_agency_flutter/shared/network/cache_network.dart';
 import 'package:car_agency_flutter/shared/network/dio_service.dart';
 import 'package:dio/dio.dart';
@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class AuthCubit extends  Cubit<AuthStates> {
   final DioService _dio = DioService();
   AuthCubit() : super(AuthInitialState());
+  UserModel? userModel;
 
   void register({
     required String name,
@@ -40,6 +41,8 @@ class AuthCubit extends  Cubit<AuthStates> {
 
       if (response.statusCode  == 200) {
         await CacheNetwork.setCache('token', response.data['data']['access_token']);
+        userModel = UserModel.fromJson(response.data['data']['user']);
+        
         emit(AuthAuthenticatedState());
       } else {
         emit(AuthErrorState(response.data['message']));
@@ -48,6 +51,20 @@ class AuthCubit extends  Cubit<AuthStates> {
       emit(AuthErrorState(e.response?.data['message']));
     }
   }
-
+  void userData() async {
+    emit(LoadingUserDataState());
+    try {
+      var response = await _dio.get('${Helpers.usersServiceApi()}/user');
+        if (response.statusCode  == 200) {
+        userModel = UserModel.fromJson(response.data['data']);
+        emit(SuccessUserDataState());
+      } else {
+        emit(ErrorUserDataState(response.data['message']));
+      }
+    } catch (e) {
+      print(e);
+      emit(ErrorUserDataState('Unknown error occurred'));
+    }
+  }
  
 }

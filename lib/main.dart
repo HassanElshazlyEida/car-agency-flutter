@@ -1,23 +1,16 @@
-import 'package:car_agency_flutter/helpers/helpers.dart';
-import 'package:car_agency_flutter/modules/auth/auth_cubit.dart';
-import 'package:car_agency_flutter/screen/login_screen.dart';
-import 'package:car_agency_flutter/screen/register_screen.dart';
-import 'package:car_agency_flutter/shared/bloc/global_bloc_observer.dart';
-import 'package:car_agency_flutter/shared/network/cache_network.dart';
+import 'package:car_agency_flutter/modules/auth/auth_bloc/auth_cubit.dart';
+import 'package:car_agency_flutter/modules/layout/layout_bloc/layout_cubit.dart';
+import 'package:car_agency_flutter/routes/routes.dart';
+import 'package:car_agency_flutter/shared/app_Initializer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:get/route_manager.dart';
 
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  Bloc.observer = GlobalBlocObserver();
-
-  await dotenv.load(fileName: ".env");
-  await CacheNetwork.init();
-
-  print('test');
+  await AppInitializer.initialize();
 
   runApp(const MyApp());
 }
@@ -27,14 +20,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
+   return  MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => AuthCubit()),
+        BlocProvider(create: (context) => AuthCubit()..userData()),
+        BlocProvider(create: (context) => LayoutCubit()),
       ],
-      child:  const MaterialApp(
-      title: 'Flutter Demo',
-      home: LoginScreen()
-      )
+      child: GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            scaffoldBackgroundColor: Colors.grey[100], 
+          ),
+          darkTheme: ThemeData.light(),
+          initialRoute: Routes.home,
+          getPages: AppPages.pages,
+        )
     );
   }
 }

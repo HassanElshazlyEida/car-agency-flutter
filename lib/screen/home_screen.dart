@@ -5,18 +5,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home:   Scaffold(
-        appBar: AppBar(
-            title: const Text('home'),
-        ),
-        body: const Center(child:  Text("home")),
-      ),
+    return const Scaffold(
+        body:  Center(child:  Text("home")),
     );
   }
 }

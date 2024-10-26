@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:get/route_manager.dart';
 
 class Helpers {
 
@@ -31,6 +32,9 @@ class Helpers {
         }, child: const Center(child:  Text('OK')))
       ],
     );
+  }
+  static SnackbarController errorSnackbar({required BuildContext context, required String message}){
+    return Get.snackbar('Failed', message, duration : const Duration(seconds: 5),backgroundColor: const Color.fromARGB(255, 218, 77, 77));
   }
   static String? usersServiceApi(){
     return dotenv.env['USERS_SERVICE_API'];

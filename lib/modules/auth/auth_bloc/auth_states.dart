@@ -9,3 +9,10 @@ class AuthErrorState extends AuthStates {
 }
 class AuthAuthenticatedState extends AuthStates {}
 class AuthUnauthenticatedState extends AuthStates {}
+
+class LoadingUserDataState extends AuthStates {}
+class SuccessUserDataState extends AuthStates {}
+class ErrorUserDataState extends AuthStates {
+  final String message;
+  ErrorUserDataState(this.message);
+}

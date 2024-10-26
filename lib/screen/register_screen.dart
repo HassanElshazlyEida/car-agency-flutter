@@ -1,9 +1,10 @@
 import 'package:car_agency_flutter/helpers/helpers.dart';
-import 'package:car_agency_flutter/modules/auth/auth_cubit.dart';
-import 'package:car_agency_flutter/modules/auth/auth_states.dart';
-import 'package:car_agency_flutter/screen/home_screen.dart';
+import 'package:car_agency_flutter/modules/auth/auth_bloc/auth_cubit.dart';
+import 'package:car_agency_flutter/modules/auth/auth_bloc/auth_states.dart';
+import 'package:car_agency_flutter/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/route_manager.dart';
 
 
 class RegisterScreen extends StatelessWidget {
@@ -25,12 +26,9 @@ class RegisterScreen extends StatelessWidget {
       child: BlocConsumer<AuthCubit,AuthStates>(
         listener: (context, state) {
           if (state is AuthErrorState) {
-            showDialog(
-                context: context,
-                builder: (context) => Helpers.errorDialog(context: context, message: state.message)
-            );
+            Helpers.errorSnackbar(context: context,message: state.message);
           }else if (state is AuthAuthenticatedState) {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const  HomeScreen()));
+            Get.offNamed(Routes.home);
           }
         },
         builder: (context, state) {

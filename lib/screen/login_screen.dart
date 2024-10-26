@@ -1,10 +1,10 @@
 import 'package:car_agency_flutter/helpers/helpers.dart';
-import 'package:car_agency_flutter/modules/auth/auth_cubit.dart';
-import 'package:car_agency_flutter/modules/auth/auth_states.dart';
-import 'package:car_agency_flutter/screen/home_screen.dart';
-import 'package:car_agency_flutter/screen/register_screen.dart';
+import 'package:car_agency_flutter/modules/auth/auth_bloc/auth_cubit.dart';
+import 'package:car_agency_flutter/modules/auth/auth_bloc/auth_states.dart';
+import 'package:car_agency_flutter/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/route_manager.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -19,12 +19,13 @@ class LoginScreen extends StatelessWidget {
       return BlocConsumer<AuthCubit, AuthStates>(
       listener: (context, state) {
         if (state is AuthErrorState) {
-          showDialog(
-              context: context,
-              builder: (context) => Helpers.errorDialog(context: context, message: state.message)
-          );
+          // showDialog(
+          //     context: context,
+          //     builder: (context) => Helpers.errorDialog(context: context, message: state.message)
+          // );
+          Helpers.errorSnackbar(context: context,message: state.message);
         }else if (state is AuthAuthenticatedState) {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const  HomeScreen()));
+          Get.offNamed(Routes.home);
         }
       },
       builder: (context, state) {
@@ -44,7 +45,10 @@ class LoginScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Center(child:  Text('Login',style: TextStyle(fontSize: 25.0,fontWeight: FontWeight.bold),)),
+                          Center(child: 
+                            Image.asset('images/bg.png', height: 100, width: 100),
+                          ),
+                          const SizedBox(height: 16.0,),
                           Helpers.formField(controller: emailOrPasswordController, label: 'Email or Phone', hint : 'Enter your email or phone'),
                           const SizedBox(height: 16.0,),
                           Helpers.formField(controller: passwordController, label: 'Password', hint : 'Enter your password',isPassword: true),
@@ -85,7 +89,7 @@ class LoginScreen extends StatelessWidget {
                               InkWell(
                                 onTap: ()
                                 {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => const  RegisterScreen()));
+                                  Get.toNamed(Routes.register);
                                 },
                                 child: const Text('Create one',style: TextStyle(color: Color(0xff2d4569),fontWeight: FontWeight.bold)),
                               )
