@@ -1,3 +1,5 @@
+import 'package:car_agency_flutter/screen/login_screen.dart';
+import 'package:car_agency_flutter/screen/register_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,18 +11,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home:   Scaffold(
-        appBar: AppBar(
-            title: const Text('home'),
-        ),
-        body: const Center(child:  Text("home")),
-      ),
+      home: LoginScreen()
     );
   }
 }
