@@ -42,14 +42,16 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
     final cubit = BlocProvider.of<CarCubit>(context);
     return  BlocConsumer<CarCubit,CarStates>(
       listener: (context, state) {
-        if (state is CarUpdateErrorState) {
+        if (state is CarUpdateErrorState ) {
           Helpers.errorSnackbar(message: state.message);
-        }else if (state is CarUpdatedState) {
+        }else if (state is CarDeleteErrorState){
+           Helpers.errorSnackbar(message: state.message);
+        }else if (state is CarUpdatedState || state is CarDeletedState) {
           Get.offNamed(Routes.home);
         }
       },
       builder: (context, state) {
-        if( state is CarUpdateLoadingState){
+        if( state is CarUpdateLoadingState  || state is CarDeleteLoadingState){
           return const Scaffold(
             body:  Center(child: CircularProgressIndicator())
           );
@@ -128,19 +130,49 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                       color: const Color(0xff2d4569),
                       child: const  Text("Save changes",style:  TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold),),
                     ):
-                    MaterialButton(
-                      onPressed: (){
-                        setState(() {
-                          widget.mode = CarModeEnum.edit;
-                        });
-                      },
-                      textColor: Colors.white,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
-                      padding: const EdgeInsets.symmetric(vertical: 12.0),
-                      minWidth: double.infinity,
-                      color: const Color(0xff2d4569),
-                      child: const  Text("Edit",style:  TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold),),
-                
+                    Column(
+                      children: [
+                        MaterialButton(
+                          onPressed: (){
+                            setState(() {
+                              widget.mode = CarModeEnum.edit;
+                            });
+                          },
+                          textColor: Colors.white,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+                          padding: const EdgeInsets.symmetric(vertical: 12.0),
+                          minWidth: double.infinity,
+                          color: const Color(0xff2d4569),
+                          child: const  Text("Edit",style:  TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold),),
+                    
+                        ),
+                          const SizedBox(height: 15,),
+                          MaterialButton(
+                          onPressed: (){
+                             showDialog(
+                              context: context,
+                              builder: (dialogContext) {
+                                return Helpers.showDialogSelection(
+                                  context: context,
+                                  message: "Are you sure you want to delete this car",
+                                  action: 'Delete',
+                                  onPressed: (){
+                                    cubit.deleteCar(widget.model.id ?? '');
+                                    Navigator.pop(dialogContext);
+                                  }
+                                );
+                            });
+                          },  
+                          textColor: Colors.white,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+                          padding: const EdgeInsets.symmetric(vertical: 12.0),
+                          minWidth: double.infinity,
+                          color: Colors.redAccent,
+                          child: const  Text("Delete",style:  TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold),),
+                    
+                        ),
+                        
+                      ],
                     )
                 
                 ],

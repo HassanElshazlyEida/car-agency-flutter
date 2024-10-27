@@ -34,6 +34,23 @@ class Helpers {
       ],
     );
   }
+  static AlertDialog showDialogSelection({required BuildContext context,required String action, required String message,required Function() onPressed}){
+    return AlertDialog(
+        content: Text(message),
+        actions: [
+          TextButton(
+            onPressed: () {
+            Navigator.pop(context);
+            },
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: onPressed,
+            child: Text(action),
+          ),
+        ],
+      );
+  }
   static SnackbarController errorSnackbar({required String message}){
     return Get.snackbar('Failed', message, duration : const Duration(seconds: 5),backgroundColor: const Color.fromARGB(255, 218, 77, 77));
   }

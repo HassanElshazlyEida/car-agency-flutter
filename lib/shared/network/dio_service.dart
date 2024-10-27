@@ -53,10 +53,15 @@ class DioService {
       endpoint,
     );
   }
-    Future<Response> patch(String endpoint, Map<String, dynamic> body) async {
+  Future<Response> patch(String endpoint, Map<String, dynamic> body) async {
     return await dio.patch(
       endpoint,
       data: body,
+    );
+  }
+  Future<Response> delete(String endpoint) async {
+    return await dio.delete(
+      endpoint,
     );
   }
 }

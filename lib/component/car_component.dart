@@ -54,6 +54,7 @@ class _CarComponentState extends State<CarComponent> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text('\$${model.price!} ',style: const TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
+                            
                             TextButton(
                               onPressed: () {
                                 Get.toNamed(Routes.carDetails,
@@ -88,6 +89,7 @@ class _CarComponentState extends State<CarComponent> {
                   
                 ],
               ),
+              
             ],
           ),
         ));

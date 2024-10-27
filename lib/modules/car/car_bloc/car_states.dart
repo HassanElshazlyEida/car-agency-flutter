@@ -16,3 +16,12 @@ class CarUpdateErrorState extends CarStates {
   CarUpdateErrorState(this.message);
 }
 class CarUpdatedState extends CarStates {}
+
+
+class CarDeleteLoadingState extends CarStates {}
+class CarDeleteErrorState extends CarStates {
+  String message;
+  
+  CarDeleteErrorState(this.message);
+}
+class CarDeletedState extends CarStates {}

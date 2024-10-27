@@ -40,6 +40,20 @@ class CarCubit extends  Cubit<CarStates> {
       emit(CarUpdateErrorState(e.response?.data['message']));
     }
   }
+  void deleteCar(String id) async {
+    emit(CarDeleteLoadingState());
+    try {
+      var response = await _dio.delete('${Helpers.carsServiceApi()}/cars/$id');
+      if (response.statusCode  == 200) {
+        emit(CarDeletedState());
+      } else {
+        emit(CarDeleteErrorState(response.data['message']));
+      }
+    } on DioException catch (e) {
+      emit(CarDeleteErrorState(e.response?.data['message']));
+    }
+  }
+
   static void sendCarStatusNotification(PusherEvent event)  {
     final data = event.data; 
     final Map<String, dynamic> parsedData = json.decode(data);
