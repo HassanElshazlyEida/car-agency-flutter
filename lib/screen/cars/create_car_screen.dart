@@ -1,32 +1,47 @@
+import 'package:car_agency_flutter/helpers/helpers.dart';
+import 'package:car_agency_flutter/models/car_model.dart';
+import 'package:car_agency_flutter/modules/car/car_bloc/car_cubit.dart';
+import 'package:car_agency_flutter/modules/car/car_bloc/car_states.dart';
+import 'package:car_agency_flutter/routes/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CreateCarScreen extends StatefulWidget {
   const CreateCarScreen({super.key});
 
   @override
   State<CreateCarScreen> createState() => _CreateCarScreenState();
+
 }
 
 class _CreateCarScreenState extends State<CreateCarScreen> {
   final _formKey = GlobalKey<FormState>();
-  String _carName = '';
-  String _carModel = '';
-  double _carPrice = 0.0;
+  final nameController = TextEditingController();
+  final modelController = TextEditingController();
+  final priceController = TextEditingController();
 
-  void _submitForm() {
-    if (_formKey.currentState!.validate()) {
-      print('Car Name: $_carName');
-      print('Car Model: $_carModel');
-      print('Car Price: $_carPrice');
-      
-
-      _formKey.currentState!.reset();
-    }
-  }
+ 
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    final cubit = BlocProvider.of<CarCubit>(context);
+
+    return  BlocConsumer<CarCubit,CarStates>(
+      listener: (context, state) {
+        if (state is CarCreationErrorState) {
+          Helpers.errorSnackbar(message: state.message);
+        }else if (state is CarCreatedState) {
+          Get.offNamed(Routes.home);
+        }
+      },
+      builder: (context, state) {
+        if( state is CarCreationLoadingState){
+          return const Scaffold(
+            body:  Center(child: CircularProgressIndicator())
+          );
+        }
+        return  Scaffold(
       appBar: AppBar(
         title: const Text('Create Car'),
       ),
@@ -36,55 +51,52 @@ class _CreateCarScreenState extends State<CreateCarScreen> {
           key: _formKey,
           child: Column(
             children: [
+              Helpers.formField(controller: nameController, hint: 'Name'),
+              const SizedBox(height: 10,),
+              Helpers.formField(controller: modelController, hint: 'Model'),
+              const SizedBox(height: 10,),
               TextFormField(
-                decoration: const InputDecoration(labelText: 'Car Name'),
+                controller: priceController,
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a car name';
+                  if (value!.isEmpty) {
+                    return 'Please enter your price';
+                  }
+                  if (!RegExp(r'^\d+$').hasMatch(value)) {
+                    return 'Please enter a valid numeric price';
                   }
                   return null;
                 },
-                onChanged: (value) {
-                  _carName = value;
-                },
+                decoration: const  InputDecoration(
+                  border:  OutlineInputBorder(),
+                  hintText: 'Price',
+                ),
               ),
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Car Model'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a car model';
+              const SizedBox(height: 40,),
+              MaterialButton(
+                onPressed: (){
+                    if (_formKey.currentState!.validate()) {
+                      cubit.createNewCar(
+                        CarModel.fromJson({
+                            'name': nameController.text,
+                            'model': modelController.text,
+                            'price': int.tryParse(priceController.text),
+                          })
+                      );
                   }
-                  return null;
                 },
-                onChanged: (value) {
-                  _carModel = value;
-                },
-              ),
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Car Price'),
-                keyboardType: TextInputType.number,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a car price';
-                  }
-                  if (double.tryParse(value) == null) {
-                    return 'Please enter a valid number';
-                  }
-                  return null;
-                },
-                onChanged: (value) {
-                  _carPrice = double.tryParse(value) ?? 0.0;
-                },
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _submitForm,
-                child: const Text('Create Car'),
+                textColor: Colors.white,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                minWidth: double.infinity,
+                color: const Color(0xff2d4569),
+                child: const  Text("Create Car",style:  TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold),),
               ),
             ],
           ),
         ),
       ),
+      );
+      }
     );
   }
 }

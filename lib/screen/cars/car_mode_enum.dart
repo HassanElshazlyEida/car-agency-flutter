@@ -1,0 +1,1 @@
+enum CarModeEnum { view, edit }

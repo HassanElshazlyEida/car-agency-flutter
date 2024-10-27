@@ -6,7 +6,6 @@ import 'package:car_agency_flutter/modules/layout/layout_bloc/layout_cubit.dart'
 import 'package:car_agency_flutter/shared/network/dio_service.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 
 
@@ -28,6 +27,19 @@ class CarCubit extends  Cubit<CarStates> {
       emit(CarCreationErrorState(e.response?.data['message']));
     }
   }
+  void updateCar(String id,CarModel model) async {
+    emit(CarUpdateLoadingState());
+    try {
+      var response = await _dio.patch('${Helpers.carsServiceApi()}/cars/$id', model.toJson());
+      if (response.statusCode  == 200) {
+        emit(CarUpdatedState());
+      } else {
+        emit(CarUpdateErrorState(response.data['message']));
+      }
+    } on DioException catch (e) {
+      emit(CarUpdateErrorState(e.response?.data['message']));
+    }
+  }
   static void sendCarStatusNotification(PusherEvent event)  {
     final data = event.data; 
     final Map<String, dynamic> parsedData = json.decode(data);
@@ -39,6 +51,6 @@ class CarCubit extends  Cubit<CarStates> {
     } else {
       Helpers.successSnackbar(message:   "$carName has been $actionStatus");
     }
-    // Get.put(LayoutCubit()).loadCarsData();
+    LayoutCubit().loadCarsData();
  }
 }

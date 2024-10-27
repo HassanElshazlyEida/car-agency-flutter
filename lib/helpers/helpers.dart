@@ -5,7 +5,7 @@ import 'package:get/route_manager.dart';
 
 class Helpers {
 
-  static TextFormField formField({required TextEditingController controller, required String hint, String? label, bool? isPassword}){
+  static TextFormField formField({required TextEditingController controller, required String hint, String? label, bool? isPassword, bool? readOnly}){
     return TextFormField(
       controller: controller,
       validator: (value) {
@@ -14,6 +14,7 @@ class Helpers {
         }
         return null;
       },
+      readOnly: readOnly ?? false,
       obscureText: isPassword ?? false,
       decoration:  InputDecoration(
         border: const OutlineInputBorder(),

@@ -8,3 +8,11 @@ class CarCreationErrorState extends CarStates {
   CarCreationErrorState(this.message);
 }
 class CarCreatedState extends CarStates {}
+
+class CarUpdateLoadingState extends CarStates {}
+class CarUpdateErrorState extends CarStates {
+  String message;
+  
+  CarUpdateErrorState(this.message);
+}
+class CarUpdatedState extends CarStates {}

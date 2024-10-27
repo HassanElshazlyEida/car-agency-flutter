@@ -1,5 +1,7 @@
 import 'package:car_agency_flutter/models/car_model.dart';
 import 'package:car_agency_flutter/modules/layout/layout_bloc/layout_cubit.dart';
+import 'package:car_agency_flutter/routes/routes.dart';
+import 'package:car_agency_flutter/screen/cars/car_mode_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -54,7 +56,11 @@ class _CarComponentState extends State<CarComponent> {
                             Text('\$${model.price!} ',style: const TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
                             TextButton(
                               onPressed: () {
-                              
+                                Get.toNamed(Routes.carDetails,
+                                arguments: {
+                                  'model': model,
+                                  'mode': CarModeEnum.view
+                                });
                               },
                               style: TextButton.styleFrom(
                                 minimumSize: const Size(40, 40),
