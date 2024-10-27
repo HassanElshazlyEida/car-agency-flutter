@@ -31,3 +31,16 @@ flutter pub get
 ```bash
 flutter run
 ```
+# Widget Screenshots
+
+<img src="images/screen_shots/Simulator Screenshot - iPhone 15 Pro Max - 1.png" width ="200" />
+<img src="images/screen_shots/Simulator Screenshot - iPhone 15 Pro Max - 2.png" width ="200" />
+<img src="images/screen_shots/Simulator Screenshot - iPhone 15 Pro Max - 3.png" width ="200" />
+<img src="images/screen_shots/Simulator Screenshot - iPhone 15 Pro Max - 4.png" width ="200" />
+<img src="images/screen_shots/Simulator Screenshot - iPhone 15 Pro Max - 5.png" width ="200" />
+<img src="images/screen_shots/Simulator Screenshot - iPhone 15 Pro Max - 6.png" width ="200" />
+<img src="images/screen_shots/Simulator Screenshot - iPhone 15 Pro Max - 7.png" width ="200" />
+<img src="images/screen_shots/Simulator Screenshot - iPhone 15 Pro Max - 8.png" width ="200" />
+<img src="images/screen_shots/Simulator Screenshot - iPhone 15 Pro Max - 9.png" width ="200" />
+<img src="images/screen_shots/Simulator Screenshot - iPhone 15 Pro Max - 10.png" width ="200" />
+<img src="images/screen_shots/Simulator Screenshot - iPhone 15 Pro Max - 11.png" width ="200" />
