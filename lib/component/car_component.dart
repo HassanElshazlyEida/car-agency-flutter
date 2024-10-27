@@ -54,22 +54,22 @@ class _CarComponentState extends State<CarComponent> {
                             Text('\$${model.price!} ',style: const TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
                             TextButton(
                               onPressed: () {
-                                // Your onPressed action here
+                              
                               },
                               style: TextButton.styleFrom(
-                                minimumSize: const Size(40, 40), // Cube size
-                                backgroundColor: Colors.black, // Background color
+                                minimumSize: const Size(40, 40),
+                                backgroundColor: Colors.black, 
                                 padding: EdgeInsets.zero,
                                 shadowColor: Colors.black,
                                 elevation: 3,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(4), // Optional: rounded corners
+                                  borderRadius: BorderRadius.circular(4), 
                                 ),
                               ),
                               child: const Icon(
-                                Icons.arrow_right_alt, // Arrow icon
-                                color: Colors.white, // Icon color
-                                size: 20, // Icon size
+                              Icons.arrow_right_alt,
+                                color: Colors.white,
+                                size: 20,
                               ),
                             ),
                           

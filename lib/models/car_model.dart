@@ -19,6 +19,7 @@ class CarModel {
       'name': name,
       'model': model,
       'price': price,
+      'availability': 'available' // default value
     };
   }
 }

@@ -4,6 +4,7 @@ import 'package:car_agency_flutter/modules/layout/layout_bloc/layout_states.dart
 import 'package:car_agency_flutter/screen/home_screen.dart';
 import 'package:car_agency_flutter/screen/profile_screen.dart';
 import 'package:car_agency_flutter/shared/network/dio_service.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,9 +33,8 @@ class LayoutCubit extends Cubit<LayoutStates> {
       } else {
         emit(ErrorCarsDataState(response.data['message']));
       }
-    } catch (e) {
-      print(e);
-      emit(ErrorCarsDataState('Unknown error occurred'));
+    } on DioException catch (e) {
+      emit(ErrorCarsDataState(e.response?.data['message']));
     }
   }
   List<CarModel> filteredCars = [];

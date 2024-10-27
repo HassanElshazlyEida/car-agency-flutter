@@ -1,10 +1,12 @@
 import 'package:car_agency_flutter/modules/auth/auth_bloc/auth_cubit.dart';
+import 'package:car_agency_flutter/modules/car/car_bloc/car_cubit.dart';
 import 'package:car_agency_flutter/modules/layout/layout_bloc/layout_cubit.dart';
 import 'package:car_agency_flutter/routes/routes.dart';
 import 'package:car_agency_flutter/shared/app_Initializer.dart';
 import 'package:car_agency_flutter/shared/network/cache_network.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 
 
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
    return  MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => AuthCubit()..loadUserData()),
+        BlocProvider(create: (context) => AuthCubit()),
       ],
       child: GetMaterialApp(
           debugShowCheckedModeBanner: false,
@@ -31,7 +33,7 @@ class MyApp extends StatelessWidget {
             scaffoldBackgroundColor: Colors.grey[100], 
           ),
           darkTheme: ThemeData.light(),
-          initialRoute: Routes.home,
+          initialRoute: Routes.login,
           getPages: AppPages.pages,
         )
     );

@@ -51,6 +51,7 @@ class AuthCubit extends  Cubit<AuthStates> {
     }
   }
   void loadUserData() async {
+    print("userssss");
     emit(LoadingUserDataState());
     try {
       var response = await _dio.get('${Helpers.usersServiceApi()}/user');
@@ -60,9 +61,8 @@ class AuthCubit extends  Cubit<AuthStates> {
       } else {
         emit(ErrorUserDataState(response.data['message']));
       }
-    } catch (e) {
-      print(e);
-      emit(ErrorUserDataState('Unknown error occurred'));
+    }on DioException catch (e) {
+      emit(AuthErrorState(e.response?.data['message']));
     }
   }
  

@@ -1,5 +1,7 @@
+import 'package:car_agency_flutter/routes/routes.dart';
 import 'package:car_agency_flutter/shared/network/cache_network.dart';
 import 'package:dio/dio.dart';
+import 'package:get/route_manager.dart';
 
 class DioService {
   final Dio dio = Dio(BaseOptions(
@@ -24,6 +26,7 @@ class DioService {
       onResponse: (response, handler) {
         if (response.statusCode == 401) {
           CacheNetwork.removeCache('token');
+          Get.toNamed(Routes.login);
         }
         
         return handler.next(response);
@@ -31,13 +34,14 @@ class DioService {
       onError: (DioException e, handler) {
         if (e.response?.statusCode == 401) {
           CacheNetwork.removeCache('token');
+          Get.toNamed(Routes.login);
         }
         return handler.next(e);
       },
     ));
   }
 
-  Future<Response> post(String endpoint, Map<String, String> body) async {
+  Future<Response> post(String endpoint, Map<String, dynamic> body) async {
     return await dio.post(
       endpoint,
       data: body,

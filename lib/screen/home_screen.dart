@@ -18,7 +18,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final TextEditingController searchController = TextEditingController();
- 
     return BlocConsumer<LayoutCubit, LayoutStates>(
       listener: (context, state) {
          if (state is ErrorCarsDataState) {
@@ -30,6 +29,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
         final cubit = BlocProvider.of<LayoutCubit>(context); 
         return  Scaffold(
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              Get.toNamed(Routes.createCar);
+            },
+            backgroundColor: Colors.black, 
+            child: const Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
+          ),
           body: Padding(
             padding: const EdgeInsets.all(12.0),
             child: ListView(

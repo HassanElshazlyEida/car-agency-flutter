@@ -4,7 +4,8 @@ import 'package:car_agency_flutter/modules/auth/auth_bloc/auth_states.dart';
 import 'package:car_agency_flutter/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
+
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -13,7 +14,6 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final emailOrPasswordController = TextEditingController();
     final passwordController = TextEditingController();
-
     final formKey = GlobalKey<FormState>();
 
       return BlocConsumer<AuthCubit, AuthStates>(
