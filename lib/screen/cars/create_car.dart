@@ -30,7 +30,7 @@ class _CreateCarScreenState extends State<CreateCarScreen> {
     return  BlocConsumer<CarCubit,CarStates>(
       listener: (context, state) {
         if (state is CarCreationErrorState) {
-          Helpers.errorSnackbar(context: context,message: state.message);
+          Helpers.errorSnackbar(message: state.message);
         }else if (state is CarCreatedState) {
           Get.offNamed(Routes.home);
         }

@@ -23,7 +23,7 @@ class LoginScreen extends StatelessWidget {
           //     context: context,
           //     builder: (context) => Helpers.errorDialog(context: context, message: state.message)
           // );
-          Helpers.errorSnackbar(context: context,message: state.message);
+          Helpers.errorSnackbar(message: state.message);
         }else if (state is AuthAuthenticatedState) {
           Get.offNamed(Routes.home);
         }

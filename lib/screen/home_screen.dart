@@ -24,10 +24,13 @@ class _HomeScreenState extends State<HomeScreen> {
             Get.toNamed(Routes.home);
             Get.snackbar('Error', state.message);
          }
+        if (state is LoadingCarsDataState) {
+           const Center(child: CupertinoActivityIndicator());
+        }
       },
       builder: (context, state) {
-
-        final cubit = BlocProvider.of<LayoutCubit>(context); 
+      final cubit = BlocProvider.of<LayoutCubit>(context); 
+      
         return  Scaffold(
           floatingActionButton: FloatingActionButton(
             onPressed: () {

@@ -33,8 +33,11 @@ class Helpers {
       ],
     );
   }
-  static SnackbarController errorSnackbar({required BuildContext context, required String message}){
+  static SnackbarController errorSnackbar({required String message}){
     return Get.snackbar('Failed', message, duration : const Duration(seconds: 5),backgroundColor: const Color.fromARGB(255, 218, 77, 77));
+  }
+  static SnackbarController successSnackbar({required String message}){
+    return Get.snackbar('Success', message);
   }
   static String? usersServiceApi(){
     return dotenv.env['USERS_SERVICE_API'];

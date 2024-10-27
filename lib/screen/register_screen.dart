@@ -26,7 +26,7 @@ class RegisterScreen extends StatelessWidget {
       child: BlocConsumer<AuthCubit,AuthStates>(
         listener: (context, state) {
           if (state is AuthErrorState) {
-            Helpers.errorSnackbar(context: context,message: state.message);
+            Helpers.errorSnackbar(message: state.message);
           }else if (state is AuthAuthenticatedState) {
             Get.offNamed(Routes.home);
           }

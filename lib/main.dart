@@ -1,6 +1,4 @@
 import 'package:car_agency_flutter/modules/auth/auth_bloc/auth_cubit.dart';
-import 'package:car_agency_flutter/modules/car/car_bloc/car_cubit.dart';
-import 'package:car_agency_flutter/modules/layout/layout_bloc/layout_cubit.dart';
 import 'package:car_agency_flutter/routes/routes.dart';
 import 'package:car_agency_flutter/shared/app_Initializer.dart';
 import 'package:car_agency_flutter/shared/network/cache_network.dart';
